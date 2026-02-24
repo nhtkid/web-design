@@ -80,7 +80,7 @@ const CraftSection = ({ className = '' }: CraftSectionProps) => {
 
       scrollTl.fromTo(bgRef.current,
         { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
+        { opacity: 0.18, ease: 'power2.in' },
         0.85
       );
 
