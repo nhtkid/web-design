@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+type NavigationProps = {
+  activeSectionId: string;
+  onSectionSelect: (id: string) => void;
+};
 
-const Navigation = () => {
+const Navigation = ({ activeSectionId, onSectionSelect }: NavigationProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,17 +58,9 @@ const Navigation = () => {
     }
   }, [isVisible]);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const y = element.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: y, behavior: 'auto' });
-    }
-  };
-
   const handleBrandTap = () => {
     if (!isMobile) {
-      scrollToSection('hero');
+      onSectionSelect('hero');
       return;
     }
 
@@ -74,7 +68,7 @@ const Navigation = () => {
     const isDoubleTap = now - lastBrandTapRef.current < 320;
 
     if (isDoubleTap) {
-      scrollToSection('hero');
+      onSectionSelect('hero');
       setIsMobileMenuOpen(false);
       lastBrandTapRef.current = 0;
       return;
@@ -85,7 +79,7 @@ const Navigation = () => {
   };
 
   const handleMenuItemTap = (id: string) => {
-    scrollToSection(id);
+    onSectionSelect(id);
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
@@ -107,7 +101,9 @@ const Navigation = () => {
           <button 
             onClick={handleBrandTap}
             aria-expanded={isMobile ? isMobileMenuOpen : undefined}
-            className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[#F2F2F2] hover:text-[#D4A24A] transition-colors"
+            className={`font-mono text-[13px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              activeSectionId === 'hero' ? 'text-[#D4A24A]' : 'text-[#F2F2F2] hover:text-[#D4A24A]'
+            }`}
           >
             Alis Mind Tattooing
           </button>
@@ -118,7 +114,9 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => handleMenuItemTap(item.id)}
-                  className="text-left font-mono text-xs uppercase tracking-[0.14em] text-[#B8BDC4] hover:text-[#D4A24A] transition-colors"
+                  className={`text-left font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
+                    activeSectionId === item.id ? 'text-[#D4A24A]' : 'text-[#B8BDC4] hover:text-[#D4A24A]'
+                  }`}
                 >
                   {item.label}
                 </button>
@@ -131,8 +129,10 @@ const Navigation = () => {
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="font-mono text-xs uppercase tracking-[0.14em] text-[#B8BDC4] hover:text-[#D4A24A] transition-colors"
+              onClick={() => handleMenuItemTap(item.id)}
+              className={`font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
+                activeSectionId === item.id ? 'text-[#D4A24A]' : 'text-[#B8BDC4] hover:text-[#D4A24A]'
+              }`}
             >
               {item.label}
             </button>

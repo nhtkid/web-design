@@ -24,6 +24,24 @@ const HeroSection = ({ className = '' }: HeroSectionProps) => {
     const section = sectionRef.current;
     if (!section) return;
 
+    const showHeroContent = () => {
+      gsap.set(bgRef.current, { opacity: 1 });
+      gsap.set(panelRef.current, { x: 0, opacity: 1 });
+      gsap.set(headlineRef.current, { x: 0, opacity: 1 });
+      gsap.set(headlineRef.current?.querySelectorAll('.word') || [], { y: 0, opacity: 1, rotateX: 0 });
+      gsap.set(subheadRef.current, { x: 0, y: 0, opacity: 1 });
+      gsap.set(ctaRef.current, { x: 0, opacity: 1 });
+      gsap.set(ctaRef.current?.children || [], { y: 0, opacity: 1 });
+      gsap.set(circleRef.current, { x: 0, scale: 1, opacity: 1 });
+      gsap.set([microLeftRef.current, microRightRef.current], { opacity: 1 });
+    };
+
+    const handleForceVisible = () => {
+      showHeroContent();
+    };
+
+    window.addEventListener('hero:force-visible', handleForceVisible);
+
     const ctx = gsap.context(() => {
       // Auto-play entrance animation
       const tl = gsap.timeline({ delay: 0.3 });
@@ -89,11 +107,7 @@ const HeroSection = ({ className = '' }: HeroSectionProps) => {
           pin: true,
           scrub: 0.45,
           onLeaveBack: () => {
-            // Reset all elements to visible when scrolling back to top
-            gsap.set([bgRef.current, panelRef.current, headlineRef.current, subheadRef.current, circleRef.current], {
-              opacity: 1, x: 0, scale: 1
-            });
-            gsap.set(ctaRef.current?.children || [], { opacity: 1, x: 0 });
+            showHeroContent();
           }
         }
       });
@@ -140,7 +154,10 @@ const HeroSection = ({ className = '' }: HeroSectionProps) => {
 
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      window.removeEventListener('hero:force-visible', handleForceVisible);
+      ctx.revert();
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
