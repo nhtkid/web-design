@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface InstagramVideoProps {
   videoSrc?: string;
@@ -9,7 +9,24 @@ interface InstagramVideoProps {
 const InstagramVideo = ({ videoSrc, posterImage, className = '' }: InstagramVideoProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [canPlay, setCanPlay] = useState(false);
+  const [supportsHover, setSupportsHover] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    const updateHoverSupport = () => {
+      setSupportsHover(mediaQuery.matches);
+    };
+
+    updateHoverSupport();
+
+    mediaQuery.addEventListener('change', updateHoverSupport);
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateHoverSupport);
+    };
+  }, []);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -64,27 +81,17 @@ const InstagramVideo = ({ videoSrc, posterImage, className = '' }: InstagramVide
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        {/* Play button overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-all duration-300">
-          <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110 hover:bg-white">
-            <svg
-              className="w-5 h-5 text-[#0B0D10] ml-0.5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
       </div>
 
-      <div
-        className={`absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/90 bg-black/60 px-3 py-1.5 rounded-full transition-all duration-300 backdrop-blur-sm ${
-          isHovered ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-        }`}
-      >
-        Hover to play
-      </div>
+      {supportsHover && (
+        <div
+          className={`absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/90 bg-black/60 px-3 py-1.5 rounded-full transition-all duration-300 backdrop-blur-sm ${
+            isHovered ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
+          }`}
+        >
+          Hover to play
+        </div>
+      )}
     </div>
   );
 };
