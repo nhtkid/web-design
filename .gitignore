@@ -1,0 +1,9 @@
+Tattoo Gateway/node_modules/
+Tattoo Gateway/dist/
+Tattoo Gateway/.cache/
+Tattoo Gateway/.remotion/
+Tattoo Gateway/.DS_Store
+Tattoo Gateway/npm-debug.log*
+Tattoo Gateway/yarn-debug.log*
+Tattoo Gateway/yarn-error.log*
+Tattoo Gateway/pnpm-debug.log*

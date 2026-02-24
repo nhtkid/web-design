@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 18% 4%;
+    --foreground: 0 0% 95%;
+    --card: 220 15% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 42 55% 56%;
+    --primary-foreground: 220 18% 4%;
+    --secondary: 220 12% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 220 12% 15%;
+    --muted-foreground: 220 8% 65%;
+    --accent: 42 55% 56%;
+    --accent-foreground: 220 18% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 42 55% 56%;
+    --radius: 0px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-[#0B0D10] text-[#F2F2F2] antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Grain overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Vignette overlay */
+.vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%);
+}
+
+/* Section base */
+.section-pinned {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Circle portal */
+.circle-portal {
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: 0 30px 100px rgba(0,0,0,0.55);
+}
+
+.section-circle {
+  right: 6vw;
+  bottom: 12vh;
+  width: min(30vw, 360px);
+  height: min(30vw, 360px);
+}
+
+.section-headline {
+  width: min(92vw, 980px);
+}
+
+/* Accent color */
+.text-accent {
+  color: #D4A24A;
+}
+
+.bg-accent {
+  background-color: #D4A24A;
+}
+
+.border-accent {
+  border-color: #D4A24A;
+}
+
+/* Hairline */
+.hairline {
+  border-color: rgba(242,242,242,0.18);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-[#D4A24A] text-[#0B0D10] font-mono text-xs uppercase tracking-[0.14em] transition-all duration-300;
+}
+
+.btn-primary:hover {
+  @apply bg-[#E5B35B] scale-105;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border border-[rgba(242,242,242,0.3)] text-[#F2F2F2] font-mono text-xs uppercase tracking-[0.14em] transition-all duration-300;
+}
+
+.btn-secondary:hover {
+  @apply border-[#D4A24A] text-[#D4A24A];
+}
+
+/* Form inputs */
+input, textarea {
+  @apply bg-[rgba(242,242,242,0.05)] border border-[rgba(242,242,242,0.15)] text-[#F2F2F2] px-4 py-3 outline-none transition-all duration-300;
+}
+
+input:focus, textarea:focus {
+  @apply border-[#D4A24A];
+}
+
+input::placeholder, textarea::placeholder {
+  @apply text-[rgba(242,242,242,0.4)];
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D10;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4A24A;
+}
+
+/* Selection */
+::selection {
+  background: rgba(212, 162, 74, 0.3);
+  color: #F2F2F2;
+}
+
+@media (max-width: 1024px) {
+  .section-circle {
+    right: 5vw;
+    bottom: 10vh;
+    width: min(36vw, 300px);
+    height: min(36vw, 300px);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-pinned {
+    height: 100svh;
+  }
+
+  .section-circle {
+    right: 16px;
+    bottom: 22svh;
+    width: min(50vw, 220px);
+    height: min(50vw, 220px);
+  }
+
+  .section-headline {
+    width: 90vw;
+  }
+
+  .grain-overlay {
+    opacity: 0.04;
+  }
+}
