@@ -9,6 +9,7 @@ interface PhilosophySectionProps {
 }
 
 const PhilosophySection = ({ className = '' }: PhilosophySectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -100,7 +101,7 @@ const PhilosophySection = ({ className = '' }: PhilosophySectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/philosophy_bg_alice.jpg"
+          src={`${assetBase}philosophy_bg_alice.jpg`}
           alt="Alice Rossetti - Tattoo Artist"
           className="w-full h-full object-cover"
         />
@@ -123,7 +124,7 @@ const PhilosophySection = ({ className = '' }: PhilosophySectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/philosophy_circle_hand.jpg"
+          src={`${assetBase}philosophy_circle_hand.jpg`}
           alt="Tattooed hand with leaf"
           className="w-full h-full object-cover"
         />

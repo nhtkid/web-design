@@ -9,6 +9,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ className = '' }: HeroSectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -163,7 +164,7 @@ const HeroSection = ({ className = '' }: HeroSectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/hero_bg_ink_texture.jpg"
+          src={`${assetBase}hero_bg_ink_texture.jpg`}
           alt="Tattoo ink texture"
           className="w-full h-full object-cover"
         />
@@ -230,7 +231,7 @@ const HeroSection = ({ className = '' }: HeroSectionProps) => {
           style={{ opacity: 0 }}
         >
           <img
-            src="/hero_circle_detail.jpg"
+            src={`${assetBase}hero_circle_detail.jpg`}
             alt="Tattoo detail"
             className="w-full h-full object-cover"
           />

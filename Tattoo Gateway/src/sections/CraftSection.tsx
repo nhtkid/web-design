@@ -10,6 +10,7 @@ interface CraftSectionProps {
 }
 
 const CraftSection = ({ className = '' }: CraftSectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -101,7 +102,7 @@ const CraftSection = ({ className = '' }: CraftSectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/craft_bg_needle.jpg"
+          src={`${assetBase}craft_bg_needle.jpg`}
           alt="Tattoo needle close-up"
           className="w-full h-full object-cover"
         />
@@ -124,8 +125,8 @@ const CraftSection = ({ className = '' }: CraftSectionProps) => {
         style={{ opacity: 0 }}
       >
         <InstagramVideo
-          videoSrc="/videos/craft.mp4"
-          posterImage="/video_thumb_2.png"
+          videoSrc={`${assetBase}videos/craft.mp4`}
+          posterImage={`${assetBase}video_thumb_2.png`}
         />
       </div>
 

@@ -10,6 +10,7 @@ interface AftercareSectionProps {
 }
 
 const AftercareSection = ({ className = '' }: AftercareSectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -114,7 +115,7 @@ const AftercareSection = ({ className = '' }: AftercareSectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/aftercare_bg_bandage.jpg"
+          src={`${assetBase}aftercare_bg_bandage.jpg`}
           alt="Tattoo aftercare"
           className="w-full h-full object-cover"
         />
@@ -137,8 +138,8 @@ const AftercareSection = ({ className = '' }: AftercareSectionProps) => {
         style={{ opacity: 0 }}
       >
         <InstagramVideo
-          videoSrc="/videos/aftercare.mp4"
-          posterImage="/video_thumb_3.png"
+          videoSrc={`${assetBase}videos/aftercare.mp4`}
+          posterImage={`${assetBase}video_thumb_3.png`}
         />
       </div>
 

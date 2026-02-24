@@ -10,6 +10,7 @@ interface CommunitySectionProps {
 }
 
 const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -121,7 +122,7 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/community_bg_client.jpg"
+          src={`${assetBase}community_bg_client.jpg`}
           alt="Client with tattoo"
           className="w-full h-full object-cover"
         />
@@ -144,8 +145,8 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
         style={{ opacity: 0 }}
       >
         <InstagramVideo
-          videoSrc="/videos/community.mp4"
-          posterImage="/video_thumb_2.png"
+          videoSrc={`${assetBase}videos/community.mp4`}
+          posterImage={`${assetBase}video_thumb_2.png`}
         />
       </div>
 

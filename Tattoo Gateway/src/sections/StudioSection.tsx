@@ -10,6 +10,7 @@ interface StudioSectionProps {
 }
 
 const StudioSection = ({ className = '' }: StudioSectionProps) => {
+  const assetBase = import.meta.env.BASE_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -101,7 +102,7 @@ const StudioSection = ({ className = '' }: StudioSectionProps) => {
         style={{ opacity: 0 }}
       >
         <img
-          src="/studio_bg_interior.jpg"
+          src={`${assetBase}studio_bg_interior.jpg`}
           alt="Tattoo studio interior"
           className="w-full h-full object-cover"
         />
@@ -124,8 +125,8 @@ const StudioSection = ({ className = '' }: StudioSectionProps) => {
         style={{ opacity: 0 }}
       >
         <InstagramVideo
-          videoSrc="/videos/process.mp4"
-          posterImage="/video_thumb_1.png"
+          videoSrc={`${assetBase}videos/process.mp4`}
+          posterImage={`${assetBase}video_thumb_1.png`}
         />
       </div>
 
