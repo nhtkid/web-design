@@ -29,44 +29,24 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
           start: 'top top',
           end: '+=32.5%',
           pin: true,
-          scrub: 0.45,
+          scrub: true,
+          onEnter: () => {
+            gsap.set(paragraphRef.current, { x: 0, opacity: 1 });
+            gsap.set(circleRef.current, { scale: 1, opacity: 1 });
+            gsap.set(headlineRef.current, { y: 0, opacity: 1 });
+            gsap.set(microCtaRef.current, { x: 0, opacity: 1 });
+          },
+          onEnterBack: () => {
+            gsap.set(paragraphRef.current, { x: 0, opacity: 1 });
+            gsap.set(circleRef.current, { scale: 1, opacity: 1 });
+            gsap.set(headlineRef.current, { y: 0, opacity: 1 });
+            gsap.set(microCtaRef.current, { x: 0, opacity: 1 });
+          },
         }
       });
 
-      // ENTRANCE (0%-30%)
-      scrollTl.fromTo(bgRef.current,
-        { opacity: 0 },
-        { opacity: 1, ease: 'none' },
-        0
-      );
-
-      scrollTl.fromTo(paragraphRef.current,
-        { x: '-18vw', opacity: 0 },
-        { x: 0, opacity: 1, ease: 'power2.out' },
-        0
-      );
-
-      scrollTl.fromTo(circleRef.current,
-        { y: '60vh', scale: 0.35, opacity: 0 },
-        { y: 0, scale: 1, opacity: 1, ease: 'power2.out' },
-        0
-      );
-
-      scrollTl.fromTo(headlineRef.current,
-        { y: '18vh', opacity: 0 },
-        { y: 0, opacity: 1, ease: 'power2.out' },
-        0.05
-      );
-
-      scrollTl.fromTo(microCtaRef.current,
-        { x: '10vw', opacity: 0 },
-        { x: 0, opacity: 1, ease: 'power2.out' },
-        0.10
-      );
-
-      // SETTLE (30%-70%): Elements hold position
-
       // EXIT (70%-100%) - Circle scales up for dramatic transition to contact
+
       scrollTl.fromTo(paragraphRef.current,
         { x: 0, opacity: 1 },
         { x: '-10vw', opacity: 0, ease: 'power2.in' },
@@ -91,12 +71,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
         0.70
       );
 
-      scrollTl.fromTo(bgRef.current,
-        { opacity: 1 },
-        { opacity: 0.18, ease: 'power2.in' },
-        0.85
-      );
-
     }, section);
 
     return () => ctx.revert();
@@ -119,7 +93,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
       <div
         ref={bgRef}
         className="absolute inset-0 w-full h-full"
-        style={{ opacity: 0 }}
       >
         <img
           src={`${assetBase}community_bg_client.jpg`}
@@ -133,7 +106,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
       <p
         ref={paragraphRef}
         className="absolute left-6 sm:left-[6vw] top-[8vh] sm:top-[10vh] max-w-[88vw] sm:max-w-[34vw] pr-6 sm:pr-0 text-[clamp(13px,1.1vw,16px)] text-[#B8BDC4] font-light leading-relaxed z-10"
-        style={{ opacity: 0 }}
       >
         A tattoo is a mark of a moment—personal, permanent, and worth doing right. If you're ready, let's build something honest.
       </p>
@@ -142,7 +114,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
       <div
         ref={circleRef}
         className="absolute circle-portal section-circle z-[2]"
-        style={{ opacity: 0 }}
       >
         <InstagramVideo
           videoSrc={`${assetBase}videos/community.mp4`}
@@ -154,7 +125,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
       <h2
         ref={headlineRef}
         className="absolute left-1/2 top-[78vh] sm:top-[86vh] -translate-x-1/2 section-headline font-display text-[clamp(30px,4.5vw,72px)] uppercase leading-[1] tracking-[-0.02em] text-[#F2F2F2] z-10 text-center sm:whitespace-nowrap px-4 sm:px-0"
-        style={{ opacity: 0 }}
       >
         Wear it with pride
       </h2>
@@ -163,7 +133,6 @@ const CommunitySection = ({ className = '' }: CommunitySectionProps) => {
       <button
         ref={microCtaRef}
         className="absolute right-6 sm:right-[6vw] bottom-[6vh] font-mono text-[11px] uppercase tracking-[0.14em] text-[#B8BDC4] hover:text-[#D4A24A] transition-colors z-10"
-        style={{ opacity: 0 }}
         onClick={scrollToContact}
       >
         Start your project
